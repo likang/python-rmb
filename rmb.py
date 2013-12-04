@@ -6,14 +6,14 @@ http://www.pbc.gov.cn/rhwg/971601f7.htm
 import re
 
 __author__ = 'Kang Li<eastern.fence@gmail.com>'
-__version__ = '0.0.1'
+__version__ = '0.0.3'
 
 
 def wrapper(digits=u'零壹贰叁肆伍陆柒捌玖', words=u'亿万仟佰拾元角分整'):
     digits = list(digits) + ['']
     yi, wan, qian, bai, shi, yuan, jiao, fen, zheng = list(words)
 
-    valid = re.compile(r'^\d{1,16}(\.\d+)?$')
+    valid = re.compile(r'^0*\d{1,16}(\.\d+)?$')
 
     def integers(number, postfix=yuan):
         vs = number[-4:]
@@ -50,7 +50,7 @@ def wrapper(digits=u'零壹贰叁肆伍陆柒捌玖', words=u'亿万仟佰拾元
 
     def upper_case(number):
         number = str(number)
-        if valid.match(number):
+        if not valid.match(number):
             return ''
 
         integer, fraction = (number+'.').split('.')[:2]
